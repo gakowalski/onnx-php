@@ -1,0 +1,11 @@
+{
+    "require": {
+        "google/protobuf": "^3.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "Onnx\\": "Onnx/",
+            "GPBMetadata\\": "GPBMetadata/"            
+        }
+    }
+}
