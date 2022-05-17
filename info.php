@@ -30,3 +30,43 @@ foreach ($basic_info as $attr) {
   $value = $model->$method() ?? '(empty)';
   echo "$attr: $value\n";
 }
+
+foreach ($model->getOpSetImport() as $opset) {
+  $name = $opset->getDomain();
+  $version = $opset->getVersion();
+  echo "Operator set '$name' version $version\n";
+}
+
+foreach ($model->getMetadataProps() as $metadata) {
+  var_dump($metadata);
+}
+
+foreach ($model->getFunctions() as $function) {
+  $name = $function->getName();
+  echo "Function: $name\n";
+}
+
+if ($model->hasGraph() == false) {
+  die('No graph data');
+}
+
+$graph = $model->getGraph();
+
+foreach ($graph->getInput() as $input) {
+  $name = $input->getName();
+  $doc_string = $input->getDocString();
+  echo "Input '$name' described as '$doc_string'\n";
+}
+
+foreach ($graph->getOutput() as $input) {
+  $name = $input->getName();
+  $doc_string = $input->getDocString();
+  echo "Output '$name' described as '$doc_string'\n";
+}
+
+foreach ($graph->getValueInfo() as $input) {
+  $name = $input->getName();
+  $doc_string = $input->getDocString();
+  echo "Value '$name' described as '$doc_string'\n";
+}
+
