@@ -1,5 +1,7 @@
 # onnx-php
 
+## Introduction
+
 I would like to create a PHP native library for running ONNX models.
 
 At this point ONNX file is loaded into memory and deserialized from Protocol Buffer format into PHP object.
@@ -23,4 +25,12 @@ ProducerVersion: 1.7
 Domain:
 ModelVersion: 0
 DocString:
+```
+
+## Installation
+
+Git clone this repo and then:
+
+```sh
+composer install
 ```
