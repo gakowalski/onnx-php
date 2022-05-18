@@ -17,13 +17,15 @@ $file_size = strlen($file_data);
 echo "File size: $file_size bytes\n";
 
 $input_stream = new \Google\Protobuf\Internal\CodedInputStream($file_data);
-if (strlen($file_data) > (32 << 20) && method_exists($input_stream, 'setTotalBytesLimit')) {
-	echo "File size exceeeds default buffer limits. Changing limits to $file_size bytes.";
-	$input_stream->setTotalBytesLimit($file_size);
-} else {
-	echo "Can't process files of size greater than 32 MB with this version of google/protobuf library\n";
-	echo "You can try manually patching with contents of this commit: https://github.com/protocolbuffers/protobuf/commit/7ac02a13375ef8082b6f3d40439985508330af66";
-	exit;
+if (strlen($file_data) > (32 << 20)) {
+	if (method_exists($input_stream, 'setTotalBytesLimit')) {
+		echo "File size exceeeds default buffer limits. Changing limits to $file_size bytes.";
+		$input_stream->setTotalBytesLimit($file_size);
+	} else {
+		echo "Can't process files of size greater than 32 MB with this version of google/protobuf library\n";
+		echo "You can try manually patching with contents of this commit: https://github.com/protocolbuffers/protobuf/commit/7ac02a13375ef8082b6f3d40439985508330af66";
+		exit;
+	}
 }
 
 $model = new \Onnx\ModelProto;
